@@ -1,12 +1,23 @@
-import { Box, Flex, VStack, Text } from "@chakra-ui/react"
+import { Box, Flex, HStack, Text } from "@chakra-ui/react"
+import { useState } from "react"
 import NavBar from "./components/NavBar"
 import GameGrid from "./components/GameGrid"
+import GenreList from "./components/GenreList"
+import PlatformSelector from "./components/PlatformSelector"
+import { GameQuery } from "./types"
 
 function App() {
+  // GameQuery drives all filters and search for the grid.
+  const [gameQuery, setGameQuery] = useState<GameQuery>({})
+
   return (
     <Flex flexDirection="column" h="100vh" bg="var(--bg-primary)" color="var(--text-primary)">
       {/* NavBar */}
-      <NavBar />
+      <NavBar
+        onSearch={(searchText) =>
+          setGameQuery((prev) => ({ ...prev, searchText }))
+        }
+      />
 
       {/* Main Layout */}
       <Flex flex={1}>
@@ -16,49 +27,13 @@ function App() {
           bg="var(--sidebar-bg)" 
           color="white" 
           p={4}
-          _hover={{}}
         >
-          <VStack align="stretch" gap={4}>
-            <Text fontSize="lg" fontWeight="bold">
-              Menu
-            </Text>
-            <Box 
-              p={3} 
-              bg="var(--sidebar-hover)" 
-              borderRadius="md" 
-              cursor="pointer"
-              _hover={{ opacity: 0.8 }}
-            >
-              Home
-            </Box>
-            <Box 
-              p={3} 
-              bg="var(--sidebar-hover)" 
-              borderRadius="md" 
-              cursor="pointer"
-              _hover={{ opacity: 0.8 }}
-            >
-              Games
-            </Box>
-            <Box 
-              p={3} 
-              bg="var(--sidebar-hover)" 
-              borderRadius="md" 
-              cursor="pointer"
-              _hover={{ opacity: 0.8 }}
-            >
-              Favorites
-            </Box>
-            <Box 
-              p={3} 
-              bg="var(--sidebar-hover)" 
-              borderRadius="md" 
-              cursor="pointer"
-              _hover={{ opacity: 0.8 }}
-            >
-              Settings
-            </Box>
-          </VStack>
+          <GenreList
+            selectedGenre={gameQuery.genre ?? null}
+            onSelectGenre={(genre) =>
+              setGameQuery((prev) => ({ ...prev, genre }))
+            }
+          />
         </Box>
 
         {/* Main Content */}
@@ -69,7 +44,18 @@ function App() {
           color="var(--text-primary)"
           overflowY="auto"
         >
-          <GameGrid />
+          <HStack justifyContent="space-between" mb={6}>
+            <Text fontSize="2xl" fontWeight="bold">
+              Games
+            </Text>
+            <PlatformSelector
+              selectedPlatform={gameQuery.platform ?? null}
+              onSelectPlatform={(platform) =>
+                setGameQuery((prev) => ({ ...prev, platform }))
+              }
+            />
+          </HStack>
+          <GameGrid gameQuery={gameQuery} />
         </Box>
       </Flex>
     </Flex>
