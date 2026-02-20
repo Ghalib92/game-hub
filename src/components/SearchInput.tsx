@@ -20,8 +20,11 @@ const SearchInput = ({ onSearch }: Props) => {
     >
       <HStack gap={2}>
         <Input ref={ref} placeholder="Search games..." />
-        <Button type="submit" leftIcon={<Search size={16} />}>
-          Search
+        <Button type="submit">
+          <HStack gap={2}>
+            <Search size={16} />
+            <Box as="span">Search</Box>
+          </HStack>
         </Button>
       </HStack>
     </Box>

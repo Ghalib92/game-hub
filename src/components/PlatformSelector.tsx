@@ -16,20 +16,21 @@ const PlatformSelector = ({ selectedPlatform, onSelectPlatform }: Props) => {
     <HStack gap={2} alignItems="center">
       <Text fontWeight="bold">Platform</Text>
       {isLoading ? <Spinner size="sm" /> : null}
-      <Box
-        as="select"
+      <select
         value={selectedPlatform?.id ?? ""}
-        onChange={(event) => {
+        onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
           const id = Number(event.target.value)
           const platform = platforms.find((p) => p.id === id) || null
           onSelectPlatform(platform)
         }}
-        maxW="200px"
-        bg="var(--bg-secondary)"
-        color="var(--text-primary)"
-        borderRadius="md"
-        px={3}
-        py={2}
+        style={{
+          maxWidth: "200px",
+          background: "var(--bg-secondary)",
+          color: "var(--text-primary)",
+          borderRadius: "8px",
+          padding: "8px 12px",
+          border: "1px solid rgba(255, 255, 255, 0.1)",
+        }}
       >
         <option value="">All</option>
         {platforms.map((platform) => (
@@ -37,7 +38,7 @@ const PlatformSelector = ({ selectedPlatform, onSelectPlatform }: Props) => {
             {platform.name}
           </option>
         ))}
-      </Box>
+      </select>
     </HStack>
   )
 }
