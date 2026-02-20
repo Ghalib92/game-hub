@@ -1,5 +1,6 @@
-import { Box, Flex, Grid, GridItem, VStack, Text } from "@chakra-ui/react"
+import { Box, Flex, VStack, Text } from "@chakra-ui/react"
 import NavBar from "./components/NavBar"
+import GameGrid from "./components/GameGrid"
 
 function App() {
   return (
@@ -68,27 +69,7 @@ function App() {
           color="var(--text-primary)"
           overflowY="auto"
         >
-          <Grid templateColumns="repeat(auto-fill, minmax(200px, 1fr))" gap={6}>
-            {[1, 2, 3, 4, 5, 6].map((item) => (
-              <GridItem key={item}>
-                <Box
-                  bg="var(--bg-secondary)"
-                  p={4}
-                  borderRadius="md"
-                  boxShadow="sm"
-                  minH="250px"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  cursor="pointer"
-                  color="var(--text-primary)"
-                  _hover={{ boxShadow: "lg" }}
-                >
-                  <Text>Game {item}</Text>
-                </Box>
-              </GridItem>
-            ))}
-          </Grid>
+          <GameGrid />
         </Box>
       </Flex>
     </Flex>
