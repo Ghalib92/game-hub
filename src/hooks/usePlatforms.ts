@@ -1,7 +1,0 @@
-import useData from "./useData"
-import { Platform } from "../types"
-
-const usePlatforms = () =>
-  useData<Platform>("/platforms/lists/parents", undefined, ["platforms"])
-
-export default usePlatforms
