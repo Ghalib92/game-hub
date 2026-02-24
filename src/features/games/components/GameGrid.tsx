@@ -1,7 +1,7 @@
 import { memo } from "react"
 import { Box, Center, SimpleGrid, Spinner } from "@chakra-ui/react"
-import useGames from "../hooks/useGames"
-import { GameQuery } from "../types"
+import { useGames } from "../hooks"
+import { GameQuery } from "../../../shared/types"
 import GameCard from "./GameCard"
 
 interface Props {

@@ -1,14 +1,16 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query"
-import apiClient from "../services/axios"
-import { FetchResponse } from "../types"
+import apiClient from "../../../api/client"
+import { FetchResponse } from "../../../shared/types"
 import type { AxiosRequestConfig } from "axios"
 
+// Generic data fetching hook that works with React Query
+// T = type of data in the array (e.g., Game, Genre, Platform)
+// This hook handles caching, background refetching, and error states
 const useData = <T>(
   endpoint: string,
   requestConfig?: AxiosRequestConfig,
   queryKey: (string | unknown)[] = [endpoint]
 ): UseQueryResult<T[], Error> => {
-  // useQuery handles caching, background refetching, and stale state management automatically.
   return useQuery<T[], Error>({
     queryKey: queryKey,
     queryFn: async () => {

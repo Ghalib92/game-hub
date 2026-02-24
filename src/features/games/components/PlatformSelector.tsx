@@ -1,6 +1,6 @@
 import { Box, HStack, Spinner, Text } from "@chakra-ui/react"
-import usePlatforms from "../hooks/usePlatforms"
-import { Platform } from "../types"
+import { usePlatforms } from "../hooks"
+import { Platform } from "../../../shared/types"
 
 interface Props {
   selectedPlatform: Platform | null

@@ -1,6 +1,6 @@
 import { Box, Button, HStack, Spinner, Text, VStack } from "@chakra-ui/react"
-import useGenres from "../hooks/useGenres"
-import { Genre } from "../types"
+import { useGenres } from "../hooks"
+import { Genre } from "../../../shared/types"
 
 interface Props {
   selectedGenre: Genre | null

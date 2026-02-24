@@ -1,8 +1,9 @@
 import useData from "./useData"
-import { Game, GameQuery } from "../types"
+import { Game, GameQuery } from "../../../shared/types"
 
+// Fetch games with optional filters and search
+// Query key includes all filter parameters so refetches happen on changes
 const useGames = (gameQuery: GameQuery) => {
-  // Build query params from filters. React Query will automatically refetch when these change.
   const params = {
     genres: gameQuery.genre?.id,
     platforms: gameQuery.platform?.id,
@@ -10,7 +11,6 @@ const useGames = (gameQuery: GameQuery) => {
     search: gameQuery.searchText,
   }
 
-  // Query key includes all filter values so React Query knows to refetch on changes.
   return useData<Game>("/games", { params }, [
     "games",
     gameQuery.genre?.id,

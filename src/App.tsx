@@ -1,10 +1,8 @@
 import { Box, Flex, HStack, Text } from "@chakra-ui/react"
 import { useState } from "react"
-import NavBar from "./components/NavBar"
-import GameGrid from "./components/GameGrid"
-import GenreList from "./components/GenreList"
-import PlatformSelector from "./components/PlatformSelector"
-import { GameQuery } from "./types"
+import { NavBar } from "./features/ui"
+import { GameGrid, GenreList, PlatformSelector } from "./features/games"
+import { GameQuery } from "./shared/types"
 
 function App() {
   // GameQuery drives all filters and search for the grid.

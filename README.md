@@ -15,7 +15,8 @@ A React + Vite app that uses the RAWG API to browse games with filters, search, 
 - React 18 + Vite
 - TypeScript
 - Chakra UI v3
-- Axios
+- TanStack React Query v5 (data fetching & caching)
+- Axios (HTTP client)
 - lucide-react (icons)
 
 ## Getting Started
