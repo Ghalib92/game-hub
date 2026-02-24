@@ -1,9 +1,10 @@
 import { memo } from "react"
-import { Box, Flex, HStack, Text } from "@chakra-ui/react"
+import { Box, Flex, HStack } from "@chakra-ui/react"
+import { Link as RouterLink } from "react-router-dom"
 import { ThemeToggle, SearchInput } from "../common"
 
 interface Props {
-  onSearch: (searchText: string) => void
+  onSearch?: (searchText: string) => void
 }
 
 // Application header with logo, navigation, search, and theme toggle
@@ -17,16 +18,17 @@ const NavBar = ({ onSearch }: Props) => {
       alignItems="center"
       gap={6}
     >
-      <Text fontSize="lg" fontWeight="bold">
+      <RouterLink to="/" style={{ fontSize: "lg", fontWeight: "bold" }}>
         Game Hub
-      </Text>
+      </RouterLink>
       <Box flex={1} maxW="600px">
-        <SearchInput onSearch={onSearch} />
+        {onSearch && <SearchInput onSearch={onSearch} />}
       </Box>
       <HStack gap={4}>
-        <a href="#home">Home</a>
-        <a href="#games">Games</a>
-        <a href="#about">About</a>
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/games">Games</RouterLink>
+        <RouterLink to="/favorites">Favorites</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
         <ThemeToggle />
       </HStack>
     </Flex>
