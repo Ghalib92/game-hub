@@ -1,9 +1,17 @@
 services:
-  web:
-    build:
-      context: .
-      args:
-        VITE_RAWG_API_URL: ${VITE_RAWG_API_URL}
-        VITE_RAWG_API_KEY: ${VITE_RAWG_API_KEY}
+  # Development server with hot reload
+  dev:
+    image: node:20-alpine
+    working_dir: /app
+    command: npm run dev
     ports:
-      - "5173:80"
+      - "5173:5173"
+    volumes:
+      - ./:/app
+      - node_modules:/app/node_modules
+    environment:
+      - VITE_RAWG_API_URL=${VITE_RAWG_API_URL}
+      - VITE_RAWG_API_KEY=${VITE_RAWG_API_KEY}
+
+volumes:
+  node_modules:
