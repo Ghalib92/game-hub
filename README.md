@@ -46,6 +46,25 @@ npm run dev
 - npm run build
 - npm run preview
 
+## Docker
+
+1) Create a .env file in the project root
+
+```bash
+VITE_RAWG_API_URL=https://api.rawg.io/api
+VITE_RAWG_API_KEY=YOUR_API_KEY
+```
+
+2) Build and run
+
+```bash
+docker compose up --build
+```
+
+3) Open the app
+
+http://localhost:5173
+
 ## Project Structure
 
 - src/components: UI components

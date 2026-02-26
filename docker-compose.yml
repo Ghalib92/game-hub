@@ -1,0 +1,9 @@
+services:
+  web:
+    build:
+      context: .
+      args:
+        VITE_RAWG_API_URL: ${VITE_RAWG_API_URL}
+        VITE_RAWG_API_KEY: ${VITE_RAWG_API_KEY}
+    ports:
+      - "5173:80"
