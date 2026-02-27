@@ -410,4 +410,108 @@ docker buildx build --platform linux/amd64,linux/arm64 -t game-hub:latest .
 - **Profiles**: Clean separation between dev and production workflows
 - **Portability**: Clone, set `.env`, run one command
 
+## Reusing These Docker Files in Other Projects
+
+These Docker files are designed to be **reusable across any Vite + React project**. Here's how to adapt them:
+
+### Quick Copy Checklist
+
+**✅ Copy these files as-is:**
+- `Dockerfile` - Works for any Vite project
+- `nginx.conf` - Works for any SPA (React Router, Vue Router, etc.)
+- `.dockerignore` - Generic for Node.js projects
+- `docker-compose.yml` and `docker-compose.prod.yml` (structure)
+
+**📝 Customize these parts:**
+
+1. **Environment Variables** (if your app needs them):
+   ```yaml
+   # In docker-compose.yml and docker-compose.prod.yml
+   environment:
+     - VITE_YOUR_API_URL=${VITE_YOUR_API_URL}
+     - VITE_YOUR_KEY=${VITE_YOUR_KEY}
+   ```
+   
+   ```dockerfile
+   # In Dockerfile
+   ARG VITE_YOUR_API_URL
+   ENV VITE_YOUR_API_URL=${VITE_YOUR_API_URL}
+   ```
+
+2. **Port** (optional):
+   ```yaml
+   ports:
+     - "3000:5173"  # Access on port 3000 instead of 5173
+   ```
+
+3. **Build Script** (if using Create React App):
+   ```yaml
+   command: npm start  # Instead of npm run dev
+   ```
+
+4. **Output Directory** (if not using Vite):
+   ```dockerfile
+   # In Dockerfile, change if your build outputs to 'build' instead of 'dist'
+   COPY --from=build /app/build /usr/share/nginx/html
+   ```
+
+### Framework-Specific Notes
+
+#### ✅ Works With (Vite-based):
+- React + Vite ✓
+- Vue + Vite ✓
+- Svelte + Vite ✓
+- Preact + Vite ✓
+- Lit + Vite ✓
+
+#### ⚠️ Needs Minor Changes:
+- **Create React App**: 
+  - Change `npm run dev` → `npm start`
+  - Change `npm run build` → `npm run build` (same)
+  - Change `/app/dist` → `/app/build`
+  - Update port from 5173 to 3000 in vite.config
+
+#### ❌ Needs Different Setup:
+- **Next.js**: Has its own server, doesn't use Nginx (use standalone mode)
+- **Gatsby**: Static site generator, similar but different build process
+- **Remix**: Needs Node.js runtime, can't use static Nginx approach
+
+### Example: Adapting for a New Project
+
+```bash
+# 1. Copy files to your new project
+cp Dockerfile docker-compose.yml docker-compose.prod.yml nginx.conf .dockerignore /path/to/new-project/
+
+# 2. Create .env with your app's variables
+cd /path/to/new-project
+echo "VITE_API_URL=https://api.example.com" > .env
+
+# 3. Update docker-compose.yml (just change the env var names)
+# Edit environment section to match your .env variables
+
+# 4. Add vite.config.ts server settings (if not present)
+# See vite.config.ts section in this doc
+
+# 5. Run
+docker compose run --rm dev npm install
+docker compose up
+```
+
+### Template Repository Suggestion
+
+Consider creating a GitHub template repository with these Docker files for quick project setup:
+
+```
+docker-vite-template/
+├── Dockerfile
+├── docker-compose.yml
+├── docker-compose.prod.yml
+├── nginx.conf
+├── .dockerignore
+├── .env.example
+└── README.md (with setup instructions)
+```
+
+Then use `npx degit your-username/docker-vite-template` to scaffold new projects!
+
 For questions or issues, refer to the main [README.md](README.md) or Docker documentation.

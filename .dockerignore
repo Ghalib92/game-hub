@@ -1,6 +1,22 @@
+# ============================================
+# DOCKER IGNORE FILE
+# REUSABLE FOR ANY NODE.JS / REACT PROJECT
+# ============================================
+# Purpose: Exclude files from Docker build context
+# Benefits: Faster builds, smaller context, more secure
+# Customize: Add project-specific files/folders to exclude
+# ============================================
+
+# Dependencies (will be installed in container)
 node_modules
 dist
 .git
 .vscode
 .env
 npm-debug.log
+
+# Docker-related
+.docker/
+docker-compose.override.yml
+docker-compose.*.local.yml
+*.dockerignore.local

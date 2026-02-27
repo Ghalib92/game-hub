@@ -128,6 +128,25 @@ For comprehensive Docker documentation including:
 
 📖 **See [DOCKER.md](DOCKER.md)**
 
+## Reusing Docker Files in Other Projects
+
+These Docker files are designed to be **reusable** for any Vite + React project! 
+
+**Files you can copy:**
+- `Dockerfile` - Multi-stage build for production
+- `docker-compose.yml` - Development with hot reload
+- `docker-compose.prod.yml` - Production build
+- `nginx.conf` - SPA routing configuration
+- `.dockerignore` - Optimizes build context
+- `.env.example` - Environment variables template
+
+**What to customize:**
+1. Environment variable names in compose files
+2. Port numbers (optional)
+3. Build output directory if not using Vite
+
+📖 **See [DOCKER.md - Reusing Section](DOCKER.md#reusing-these-docker-files-in-other-projects) for detailed instructions**
+
 ## Project Structure
 
 - src/components: UI components

@@ -1,10 +1,23 @@
+# ============================================
+# PRODUCTION DOCKER COMPOSE
+# REUSABLE FOR ANY VITE + REACT PROJECT
+# ============================================
+# Customize:
+# 1. Build args (environment variables)
+# 2. Port mapping
+# ============================================
+
 services:
   # Production build with Nginx
   web:
     build:
       context: .
+      # CUSTOMIZE: Add/remove/modify build args to match your Dockerfile ARGs
+      # Remove this entire 'args' section if your app doesn't need build-time env vars
       args:
         VITE_RAWG_API_URL: ${VITE_RAWG_API_URL}
         VITE_RAWG_API_KEY: ${VITE_RAWG_API_KEY}
+    
+    # CUSTOMIZE: Change port if desired (e.g., "80:80" or "3000:80")
     ports:
       - "5173:80"

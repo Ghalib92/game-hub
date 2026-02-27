@@ -1,14 +1,32 @@
+# ============================================
+# DEVELOPMENT DOCKER COMPOSE
+# REUSABLE FOR ANY VITE + REACT PROJECT
+# ============================================
+# Customize:
+# 1. Environment variables (or remove if not needed)
+# 2. Port mapping (change 5173 to your preferred port)
+# 3. Command (if using different dev script)
+# ============================================
+
 services:
   # Development server with hot reload
   dev:
     image: node:20-alpine
     working_dir: /app
+    
+    # CUSTOMIZE: Change to 'npm start' for Create React App
     command: npm run dev
+    
+    # CUSTOMIZE: Change port if desired (e.g., "3000:5173")
     ports:
       - "5173:5173"
+    
     volumes:
       - ./:/app
       - node_modules:/app/node_modules
+    
+    # CUSTOMIZE: Add/remove/modify environment variables for your app
+    # Remove this entire section if your app doesn't need env vars
     environment:
       - VITE_RAWG_API_URL=${VITE_RAWG_API_URL}
       - VITE_RAWG_API_KEY=${VITE_RAWG_API_KEY}
